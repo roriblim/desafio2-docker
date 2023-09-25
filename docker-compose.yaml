@@ -2,9 +2,7 @@ services:
 
   db:
     image: mysql:5.7
-    command: 
-      - --init-file /var/lib/init.sql
-      - --innodb-use-native-aio=0
+    command: --init-file /var/lib/init.sql
     container_name: db
     restart: always
     tty: true
