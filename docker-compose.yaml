@@ -1,11 +1,28 @@
 services:
 
+  db:
+    image: mysql:5.7
+    command: 
+      - --init-file /var/lib/init.sql
+      - --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql/init.sql:/var/lib/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - desafio2-network
+
   node:
     build:
       context: ./node
     container_name: node-server
     ports: 
       - "3000:3000"
+    networks:
+      - desafio2-network
 
   nginx:
     build:
@@ -14,3 +31,9 @@ services:
     tty: true
     ports: 
     - "8080:80"
+    networks:
+    - desafio2-network
+
+networks:
+  desafio2-network:
+    driver: bridge
