@@ -5,7 +5,8 @@ const config = {
     host: 'db',
     user: 'root',
     password: 'root',
-    database: 'desafio2db'
+    database: 'desafio2db',
+    port: '3306'
 }
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
@@ -14,12 +15,14 @@ const sql = `INSERT INTO people(name) values('Rosana')`
 connection.query(sql)
 
 app.get('/',(req,res) => {
-    res.send('<h1>Full Cycle Rocks!</h1>')
-    connection.query("SELECT name FROM people", function (err, result, fields) {
-      if (err) throw err;
-      res.send(result);
-    });
+
+     connection.query("SELECT name FROM people", function (err, result, fields) {
+       if (err) throw err;
+       res.send('<h1>Full Cycle Rocks!</h1>')
+       console.log(result);
+     });
 })
+
 
 connection.end()
 

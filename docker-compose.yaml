@@ -12,6 +12,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - desafio2-network
+    expose:
+      - 3306
 
   node:
     build:
@@ -21,6 +23,11 @@ services:
       - "3000:3000"
     networks:
       - desafio2-network
+    depends_on:
+      - db
+    command: sh -c "/wait && node index.js"
+    environment:
+      - WAIT_HOSTS=db:3306
 
   nginx:
     build:
