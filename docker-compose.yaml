@@ -38,6 +38,8 @@ services:
     - "8080:80"
     networks:
     - desafio2-network
+    depends_on:
+      - db    
 
 networks:
   desafio2-network:
