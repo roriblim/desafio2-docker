@@ -14,6 +14,7 @@ const mysql = require('mysql')
 app.get('/',(req,res) => {
     const connection = mysql.createConnection(config)
      connection.query(`INSERT INTO people(name) values('Rosana')`)
+
      connection.query(`SELECT name FROM people`, function (err, result) {
        if (err) throw err;
        names ='';
@@ -21,7 +22,6 @@ app.get('/',(req,res) => {
         names = names.concat(result[key].name,',<br>');
       });
        res.send(`<h1>Full Cycle Rocks!</h1> <br>${names}`)
-       
        connection.end()
      });
 })

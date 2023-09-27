@@ -19,13 +19,16 @@ services:
     build:
       context: ./node
     container_name: node-server
+    tty: true
     ports: 
       - "3000:3000"
+    volumes:
+      - ./node/app:/usr/src/app
     networks:
       - desafio2-network
     depends_on:
       - db
-    command: sh -c "/wait && node index.js"
+    command: sh -c "/wait && npm install && npm install mysql --save && node index.js"
     environment:
       - WAIT_HOSTS=db:3306
 
